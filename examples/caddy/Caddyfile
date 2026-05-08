@@ -1,0 +1,24 @@
+# Caddyfile для прокси-сервера на 192.168.1.11
+# Проксирование локальных сервисов с SSL-сертификатами
+
+# Главный сервис на порту 9898
+srvok.ckox {
+    tls /data/certs/srvok.ckox.crt /data/certs/srvok.ckox.key
+    reverse_proxy localhost:9898
+}
+
+# Веб-интерфейс роутера Keenetic
+keenetic.srvok.ckox {
+    tls /data/certs/srvok.ckox.crt /data/certs/srvok.ckox.key
+    reverse_proxy https://192.168.1.1 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+# NAS сервис на порту 9191
+nas.srvok.ckox {
+    tls /data/certs/srvok.ckox.crt /data/certs/srvok.ckox.key
+    reverse_proxy localhost:9191
+}

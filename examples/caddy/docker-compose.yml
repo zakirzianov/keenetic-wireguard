@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  caddy:
+    image: caddy:alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./certs:/data/certs:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    network_mode: host
+
+volumes:
+  caddy_data:
+  caddy_config:
